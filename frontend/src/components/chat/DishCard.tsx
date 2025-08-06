@@ -23,9 +23,9 @@ const DishCard: FC<Props> = ({ dish }) => {
 				<h3 className='text-sm font-medium text-gray-900 dark:text-white leading-snug'>
 					{capitalizeFirstLetter(dish.title)}
 				</h3>
-				{dish.composition && (
+				{dish.notes && (
 					<p className='ml-1 text-xs text-gray-600 dark:text-gray-400 mt-0.5 leading-tight'>
-						{dish.composition}
+						{dish.notes}
 					</p>
 				)}
 				<span className='ml-1 mt-1 text-xs text-gray-800 dark:text-gray-300'>
@@ -43,7 +43,7 @@ const DishCard: FC<Props> = ({ dish }) => {
 
 				<Button
 					variant='ghost'
-                    size='icon'
+					size='icon'
 					onClick={handleAdd}
 					className='text-gray-600 hover:text-green-600 active:scale-90 active:text-green-700 dark:text-gray-300 dark:hover:text-green-500 transition-transform duration-150 ease-in-out cursor-pointer hover:scale-110'
 					aria-label='Добавить'

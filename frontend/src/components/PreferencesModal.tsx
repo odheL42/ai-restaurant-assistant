@@ -27,7 +27,7 @@ export const PreferencesModal = () => {
 	useEffect(() => {
 		if (!isOpen) return
 		setLoading(true)
-		apiGetNotes(isCatering)
+		apiGetNotes()
 			.then(data => setNotes(data))
 			.finally(() => setLoading(false))
 	}, [isOpen])

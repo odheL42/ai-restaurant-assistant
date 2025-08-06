@@ -1,11 +1,9 @@
-import { ArrowUp } from 'lucide-react'
+import { ArrowUp, Wrench } from 'lucide-react'
 import React, { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useGeneration } from '../../context/GenerationContext'
 import { PreferencesButton } from '../PreferencesButton'
 import { Button } from '../ui/button'
-import { Wrench } from 'lucide-react'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { useNavigate } from 'react-router-dom'
 
 type ChatInputProps = {
 	onSubmit: (input: string) => void
@@ -15,7 +13,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSubmit }) => {
 	const [message, setMessage] = useState('')
 	const { isWaitingForGeneration, isGenerating } = useGeneration()
 	const textareaRef = useRef<HTMLTextAreaElement>(null)
-    const navigate = useNavigate()
+	const navigate = useNavigate()
 
 	const handleSubmit = (e: React.KeyboardEvent | React.MouseEvent) => {
 		e.preventDefault()
@@ -69,7 +67,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSubmit }) => {
 					<PreferencesButton />
 
 					<Button
-						onClick={() => navigate("/menu")}
+						onClick={() => navigate('/menu')}
 						title='Открыть настройки предпочтений'
 						variant='ghost'
 						className='hover:cursor-pointer'
