@@ -1,0 +1,41 @@
+services:
+    frontend:
+        container_name: teplitsa_frontend
+        build:
+            context: ../frontend
+            dockerfile: ../docker/Dockerfile.frontend
+        ports:
+            - '42:80'
+        networks:
+            - teplitsa-net
+        depends_on:
+            backend:
+                condition: service_healthy
+        restart: always
+    backend:
+        container_name: teplitsa_backend
+        build:
+            context: ../backend
+            dockerfile: ../docker/Dockerfile.backend
+        networks:
+            - teplitsa-net
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+        healthcheck:
+            test: ['CMD', 'curl', '-f', 'http://localhost/api/health']
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 10s
+        restart: always
+        environment:
+            - TEPLITSA_ENV=prod
+            - DGIS_KEY=$DGIS_KEY
+            - OPENWEATHER_KEY=$OPENWEATHER_KEY
+            - OPENAI_KEY=$OPENAI_KEY
+            - OPENAI_SUMMARY_KEY=$OPENAI_SUMMARY_KEY
+            - OPENAI_VALIDATOR_KEY=$OPENAI_VALIDATOR_KEY
+
+networks:
+    teplitsa-net:
+        driver: bridge

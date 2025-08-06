@@ -1,0 +1,14 @@
+**
+
+!public
+!src
+!components.json
+!index.html
+!nginx.conf
+!package-lock.json
+!package.json
+!tsconfig.app.json
+!tsconfig.json
+!tsconfig.node.json
+!vite.config.ts
+
