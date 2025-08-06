@@ -6,8 +6,9 @@ import {
 	DialogTitle,
 } from '@/components/ui/dialog'
 import { useCart } from '@/context/CartContext'
-import { useMenu } from '@/context/MenuContext'
 import React from 'react'
+import { useStore } from 'zustand'
+import { menuStore } from '@/storage/menu'
 
 interface Props {
 	onClose: () => void
@@ -15,7 +16,7 @@ interface Props {
 
 const CartModal: React.FC<Props> = ({ onClose }) => {
 	const { items, removeItem, clearCart } = useCart()
-	const { dishById } = useMenu()
+    const initialDishes = useStore(menuStore, s => s.initialDishes)
 	const cartEntries = Object.entries(items)
 
 	return (
@@ -30,7 +31,7 @@ const CartModal: React.FC<Props> = ({ onClose }) => {
 				) : (
 					<ul className='flex flex-col gap-2'>
 						{cartEntries.map(([id, amount]) => {
-							const dish = dishById?.[id]
+							const dish = initialDishes?.[id]
 							if (!dish) return null
 							return (
 								<li

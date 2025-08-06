@@ -1,38 +1,19 @@
-export type DBDishContext = 'кейтеринг' | 'банкет' | 'полуфабрикаты'
-export type DBDishCategory =
-	| 'бутерброды'
-	| 'блинчики'
-	| 'сэндвичи'
-	| 'выпечка'
-	| 'канапе'
-	| 'тарталетки'
-	| 'напитки'
-	| 'десерты'
-	| 'салаты'
-	| 'ассорти'
-	| 'основные блюда'
-	| 'дополнительно'
-	| 'сырники'
-	| 'мясные и рыбные'
-	| 'овощные'
-	| 'ручная лепка'
-	| 'блины'
+export interface CPFCModel {
+	calories: number
+	proteins: number
+	fats: number
+	carbs: number
+}
 
 export interface DBDish {
 	index: string
 	title: string
 	price: number
-	context: DBDishContext
-	category: DBDishCategory
+	category?: string
 	quantity?: string
-	composition?: string
-}
-
-// Само меню — вложенный объект с массивами блюд
-export type MenuStructure = {
-	[context in DBDishContext]: {
-		[category in DBDishCategory]?: DBDish[]
-	}
+	stock?: boolean
+	notes?: string
+	cpfc?: CPFCModel
 }
 
 // Плоский словарь для быстрого поиска по id

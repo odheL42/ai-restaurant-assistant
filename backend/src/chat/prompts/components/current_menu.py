@@ -1,5 +1,5 @@
-from src.connectors.current_menu import get_current_menu
-from src.models.current_menu import CurrentMenuDish
+from src.models.menu import MenuDish
+from src.storage.menu import MenuStore
 
 
 class CurrentMenuPrompt:
@@ -12,7 +12,7 @@ $menu
 """
 
     @classmethod
-    def _format_dish(cls, dish: CurrentMenuDish) -> str:
+    def _format_dish(cls, dish: MenuDish) -> str:
         parts = [f"Индекс. {dish.index}"]
         parts.append(f"Назввание: {dish.title}")
         parts.append(f"Категория: {dish.category.value}")
@@ -36,7 +36,7 @@ $menu
 
     @classmethod
     async def get(cls) -> dict:
-        dishes: list[CurrentMenuDish] = await get_current_menu()
+        dishes: list[MenuDish] = await MenuStore.list()
         if not dishes:
             return {"menu": "_Сейчас меню недоступно._"}
 

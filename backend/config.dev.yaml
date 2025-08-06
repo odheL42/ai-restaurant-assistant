@@ -14,20 +14,25 @@ uvicorn_reload: true
 
 cors_allow_origins: ['*']
 
-openai_model: openai/gpt-4o-mini
-openai_base_url: https://api.vsegpt.ru/v1
+openai_model: gpt-4o-2024-08-06
+openai_base_url: https://api.openai.com/v1
 openai_temperature: 0.7
 openai_max_tokens: 1000
 
-openai_validator_model: openai/gpt-4o-mini
-openai_validator_base_url: https://api.vsegpt.ru/v1
+openai_validator_model: gpt-4o-2024-08-06
+openai_validator_base_url: https://api.openai.com/v1
 openai_validator_temperature: 0.7
 openai_validator_max_tokens: 1000
 
-openai_summary_model: openai/gpt-4o-mini
-openai_summary_base_url: https://api.vsegpt.ru/v1
+openai_summary_model: gpt-4o-2024-08-06
+openai_summary_base_url: https://api.openai.com/v1
 openai_summary_temperature: 0.7
 openai_summary_max_tokens: 1000
+
+openai_visual_model: gpt-4o-2024-08-06
+openai_visual_base_url: https://api.openai.com/v1
+openai_visual_temperature: 0.7
+openai_visual_max_tokens: 10000
 
 # Cookie
 cookie_name: teplitsa_cookie

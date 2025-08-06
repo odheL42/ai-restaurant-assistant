@@ -4,7 +4,6 @@ from pathlib import Path
 import aiofiles  # type: ignore
 
 from src.config import config
-from src.context.menu import MenuContext
 from src.context.session import SessionContext
 from src.models.summary import DBNotes
 
@@ -14,8 +13,7 @@ class NotesStore:
     def _ensure_path(cls) -> Path:
         user_context = SessionContext.get_user_context()
         config.notes_dir.mkdir(exist_ok=True, parents=True)
-        prefix = "catering" if MenuContext.is_catering() else "main_menu"
-        path = Path(config.notes_dir / f"{prefix}_{str(user_context.user_id)}.json")
+        path = Path(config.notes_dir / f"menu_{str(user_context.user_id)}.json")
 
         if not path.exists():
             path.write_text("{}", encoding="utf-8")

@@ -1,0 +1,72 @@
+{
+    "dish_ub3v": {
+        "index": "dish_ub3v",
+        "title": "Тако с рваной свининой (2 шт)",
+        "price": 435,
+        "category": "Тако",
+        "quantity": "240г",
+        "stock": null,
+        "notes": null,
+        "cpfc": null
+    },
+    "dish_g7ym": {
+        "index": "dish_g7ym",
+        "title": "Тако с креветкой (2 шт)",
+        "price": 595,
+        "category": "Тако",
+        "quantity": "225г",
+        "stock": null,
+        "notes": "острое",
+        "cpfc": null
+    },
+    "dish_15q1": {
+        "index": "dish_15q1",
+        "title": "Тако с мраморной говядиной (2 шт)",
+        "price": 595,
+        "category": "Тако",
+        "quantity": "230г",
+        "stock": false,
+        "notes": null,
+        "cpfc": null
+    },
+    "dish_h4jx": {
+        "index": "dish_h4jx",
+        "title": "Тако с курицей (2 шт)",
+        "price": 435,
+        "category": "Тако",
+        "quantity": "240г",
+        "stock": null,
+        "notes": null,
+        "cpfc": null
+    },
+    "dish_dbtq": {
+        "index": "dish_dbtq",
+        "title": "Сет тако",
+        "price": 1150,
+        "category": "Тако",
+        "quantity": "460г",
+        "stock": null,
+        "notes": null,
+        "cpfc": null
+    },
+    "dish_tuwu": {
+        "index": "dish_tuwu",
+        "title": "Хот-дог мясороов in black",
+        "price": 295,
+        "category": "Хот-доги",
+        "quantity": "225г",
+        "stock": null,
+        "notes": "острое, хит",
+        "cpfc": null
+    },
+    "dish_p6ub": {
+        "index": "dish_p6ub",
+        "title": "Хот-дог с рубленым мясом",
+        "price": 305,
+        "category": "Хот-доги",
+        "quantity": "260г",
+        "stock": null,
+        "notes": null,
+        "cpfc": null
+    }
+}

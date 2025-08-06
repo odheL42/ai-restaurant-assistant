@@ -3,13 +3,13 @@ import { cn } from '@/lib/utils'
 import { ShoppingCart } from 'lucide-react'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useCart } from '../context/CartContext'
-import { useMenu } from '../context/MenuContext'
 import CartModal from './CartModal'
-
+import { useStore } from 'zustand'
+import { menuStore } from '@/storage/menu'
 
 const Cart: React.FC = () => {
 	const { items } = useCart()
-	const { dishById } = useMenu()
+	const initialDishes = useStore(menuStore, s => s.initialDishes)
 	const [isOpen, setIsOpen] = useState(false)
 	const [highlight, setHighlight] = useState(false)
 
@@ -22,11 +22,11 @@ const Cart: React.FC = () => {
 
 	const totalAmount = useMemo(() => {
 		return Object.entries(items).reduce((sum, [id, amount]) => {
-			const dish = dishById?.[id]
+			const dish = initialDishes?.[id]
 			if (!dish) return sum
 			return sum + dish.price * amount
 		}, 0)
-	}, [items, dishById])
+	}, [items, initialDishes])
 
 	const formattedAmount = useMemo(() => {
 		return totalAmount.toLocaleString('ru-RU', {

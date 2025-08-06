@@ -10,12 +10,11 @@ import { ThemeProvider } from './components/ThemeProvider'
 import { CartProvider } from './context/CartContext'
 import { GenerationProvider } from './context/GenerationContext'
 import { HistoryProvider, useHistory } from './context/HistoryContext'
-import { MenuProvider } from './context/MenuContext'
 import { MenuModeProvider } from './context/MenuModeContext'
 import { ModalProvider } from './context/ModalContext'
 import { PreferencesProvider } from './context/PreferencesContext'
 import Chat from './pages/Chat'
-import MenuEditorPage from './pages/MenuEditorPage'
+import EditorPage from './pages/EditorPage'
 const Layout = () => {
 	return (
 		<div className='h-dvh w-full'>
@@ -42,39 +41,37 @@ const App = () => {
 		<ThemeProvider>
 			<React.StrictMode>
 				<MenuModeProvider>
-					<MenuProvider>
-						<CartProvider>
-							<HistoryProvider>
-								<PreferencesProvider>
-									<GenerationWithHistory>
-										<ModalProvider>
-											<Router>
-												<Routes>
+					<CartProvider>
+						<HistoryProvider>
+							<PreferencesProvider>
+								<GenerationWithHistory>
+									<ModalProvider>
+										<Router>
+											<Routes>
+												<Route
+													path='/'
+													element={<Layout />}
+												>
 													<Route
-														path='/'
-														element={<Layout />}
-													>
-														<Route
-															index
-															element={<Chat />}
-														/>
-														<Route
-															path='chat'
-															element={<Chat />}
-														/>
-													</Route>
-													<Route
-														path='menu'
-														element={<MenuEditorPage />}
+														index
+														element={<Chat />}
 													/>
-												</Routes>
-											</Router>
-										</ModalProvider>
-									</GenerationWithHistory>
-								</PreferencesProvider>
-							</HistoryProvider>
-						</CartProvider>
-					</MenuProvider>
+													<Route
+														path='chat'
+														element={<Chat />}
+													/>
+												</Route>
+												<Route
+													path='menu'
+													element={<EditorPage />}
+												/>
+											</Routes>
+										</Router>
+									</ModalProvider>
+								</GenerationWithHistory>
+							</PreferencesProvider>
+						</HistoryProvider>
+					</CartProvider>
 				</MenuModeProvider>
 			</React.StrictMode>
 		</ThemeProvider>

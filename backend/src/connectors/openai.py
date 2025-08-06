@@ -1,6 +1,7 @@
 from collections.abc import AsyncGenerator
 
 from openai import AsyncOpenAI
+from pydantic import Base64Str
 
 from src.config import config, secrets
 from src.models.completions import ChatMessage
@@ -65,6 +66,45 @@ class OpenAISummary:
             stream=False,
             temperature=config.openai_summary_temperature,
             max_tokens=config.openai_summary_max_tokens,
+        )
+
+        return response.choices[0].message.content
+
+
+class OpenAIVisual:
+    def __init__(self) -> None:
+        self.client = AsyncOpenAI(
+            api_key=secrets.openai_visual_key.get_secret_value(),
+            base_url=config.openai_visual_base_url,
+        )
+
+    async def create_from_image(
+        self,
+        image: Base64Str,
+        system_prompt: ChatMessage,
+    ) -> str:
+        messages = [
+            system_prompt,
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/png;base64,{image}",
+                            "detail": "high",
+                        },
+                    },
+                ],
+            },
+        ]
+
+        response = await self.client.chat.completions.create(
+            model=config.openai_visual_model,
+            messages=messages,
+            stream=False,
+            temperature=config.openai_visual_temperature,
+            max_tokens=config.openai_visual_max_tokens,
         )
 
         return response.choices[0].message.content

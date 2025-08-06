@@ -15,11 +15,8 @@ export default function Header() {
 			<div className='absolute inset-0 flex justify-center items-center pointer-events-none'>
 				<div className='flex flex-col items-center'>
 					<h2 className='text-xl font-extrabold text-foreground select-none'>
-						Экокафе «Теплица»
+						Офик
 					</h2>
-					<p className='mt-0.5 text-xs font-normal tracking-wide text-green-500 select-none'>
-						AI Talent Weekend by «513»
-					</p>
 				</div>
 			</div>
 

@@ -7,7 +7,6 @@ from loguru import logger
 
 from src.chat.service import ChatService
 from src.context.completions import CompletionsContext
-from src.context.menu import MenuContext
 from src.models.completions import APICompletionsRequest, ChunkResponse
 
 router = APIRouter()
@@ -19,7 +18,6 @@ async def create_completions(request: APICompletionsRequest) -> StreamingRespons
     logger.debug(f"Request: {request}")
     CompletionsContext.set_user_cart(request.cart)
     CompletionsContext.set_user_preferences(request.preferences)
-    MenuContext.set_catering(request.is_catering)
 
     async def streaming_wrapper() -> AsyncGenerator[ChunkResponse, None]:
         try:

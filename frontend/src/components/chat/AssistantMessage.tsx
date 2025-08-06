@@ -1,14 +1,16 @@
-import { useMenu } from '../../context/MenuContext'
+import { menuStore } from '@/storage/menu'
+import { useStore } from 'zustand'
 import { type ClientChatMessage } from '../../types/chat'
 import { extractDishIdsFromMessage } from '../../utils/menu'
 import DishCard from './DishCard'
 import MarkdownRenderer from './markdown/MarkdownRenderer'
+
 interface ChatMessageProps {
 	dbmessage: ClientChatMessage
 }
 
 const AssistantMessage = ({ dbmessage }: ChatMessageProps) => {
-	const { dishById } = useMenu()
+	const initialDishes = useStore(menuStore, s => s.initialDishes)
 
 	const { cleanedMessage, dishIds } = extractDishIdsFromMessage(
 		String(dbmessage.message.content)
@@ -27,7 +29,7 @@ const AssistantMessage = ({ dbmessage }: ChatMessageProps) => {
 			{dishIds.length > 0 && (
 				<div className='flex-col w-full mt-8'>
 					{dishIds.map(id => {
-						const dish = dishById?.[id]
+						const dish = initialDishes?.[id]
 						if (!dish) return null
 						return <DishCard key={id} dish={dish} />
 					})}

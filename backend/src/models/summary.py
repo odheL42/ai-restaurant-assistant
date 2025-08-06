@@ -7,12 +7,10 @@ class DBHistorySummary(BaseModel):
 
 class DBNotes(BaseModel):
     notes: str = ""
-    is_catering: bool = False
 
 
 class RequestSetNotes(BaseModel):
     notes: str
-    is_catering: bool
 
 
 class SummaryResponse(BaseModel):

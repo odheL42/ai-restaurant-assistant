@@ -9,7 +9,6 @@ class CompletionsContext:
         "user_preferences", default=None
     )
     _user_cart: ContextVar[Cart] = ContextVar("user_cart", default=None)
-    _is_catering: ContextVar[bool] = ContextVar("is_catering", default=False)
 
     @classmethod
     def set_user_preferences(cls, prefs: Preferences) -> None:

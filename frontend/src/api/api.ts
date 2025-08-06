@@ -65,26 +65,14 @@ export const apiGetHistory = async (): Promise<DBChatMessage[]> => {
 	return response.data
 }
 
-export const apiGetMenu = async (isCatering: boolean): Promise<DBDish[]> => {
-	const response = await apiClient.get(`/api/menu`, {
-		params: {
-			is_catering: isCatering,
-		},
-	})
-	return response.data
-}
 
 export const apiClearHistory = async (): Promise<DBDish[]> => {
 	const response = await apiClient.post(`/api/erase_history`)
 	return response.data
 }
 
-export const apiGetNotes = async (isCatering: boolean): Promise<string> => {
-	const response = await apiClient.get(`/api/get_notes`, {
-		params: {
-			is_catering: isCatering,
-		},
-	})
+export const apiGetNotes = async (): Promise<string> => {
+	const response = await apiClient.get(`/api/get_notes`)
 	return response.data
 }
 
@@ -93,37 +81,4 @@ export const apiSaveNotes = async (
 ): Promise<DBDish[]> => {
 	const response = await apiClient.post(`/api/save_notes`, request)
 	return response.data
-}
-
-// GET: Получить конкретное блюдо по индексу
-export const apiGetDishById = async (
-	index: string,
-	isCatering: boolean
-): Promise<DBDish> => {
-	const response = await apiClient.get(`/api/menu/byid`, {
-		params: { index, is_catering: isCatering },
-	})
-	return response.data
-}
-
-// POST: Добавить новое блюдо
-export const apiAddDish = async (dish: DBDish): Promise<void> => {
-	await apiClient.post(`/api/menu`, dish)
-}
-
-// PUT: Обновить существующее блюдо по индексу
-export const apiUpdateDish = async (
-	index: string,
-	dish: DBDish
-): Promise<void> => {
-	await apiClient.put(`/api/menu`, dish, {
-		params: { index },
-	})
-}
-
-// DELETE: Удалить блюдо по индексу
-export const apiDeleteDish = async (index: string): Promise<void> => {
-	await apiClient.delete(`/api/menu`, {
-		params: { index },
-	})
 }

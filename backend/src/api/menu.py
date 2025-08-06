@@ -1,45 +1,35 @@
-from fastapi import APIRouter, Body, HTTPException, Query
+from fastapi import APIRouter, Body, File, HTTPException, UploadFile
+from loguru import logger
 
-from src.connectors.catering_menu import get_dish_by_id as get_catering_dish_by_id
-from src.connectors.catering_menu import get_menu as get_catering_menu
-from src.connectors.current_menu import get_current_menu, get_dish_by_id
-from src.models.catering_menu import Dish
-from src.models.current_menu import CurrentMenuDish
+from src.models.menu import MenuDish, MenuDishCreate, MenuMap
+from src.services.menu import MenuRecognitionService
 from src.storage.menu import MenuStore
 
 router = APIRouter()
-
-
-@router.get("/menu/byid", tags=["Menu"])
-async def get_dish(index: str, is_catering: bool) -> CurrentMenuDish | Dish:
-    if is_catering:
-        dish = await get_catering_dish_by_id(index)
-    else:
-        dish = await get_dish_by_id(index)
-    if dish is None:
-        raise HTTPException(status_code=404, detail=f"Dish with id '{index}' not found")
-    return dish
+recognition_service = MenuRecognitionService()
 
 
 @router.get("/menu", tags=["Menu"])
-async def get_full_menu(is_catering: bool) -> list[CurrentMenuDish | Dish]:
-    if is_catering:
-        return await get_catering_menu()
-    else:
-        return await get_current_menu()
+async def get_full_menu() -> list[MenuDish]:
+    menu = await MenuStore.list()
+
+    return menu
 
 
 @router.post("/menu", tags=["Menu"])
-async def add_dish(dish: CurrentMenuDish):
+async def add_dish(dish: MenuDishCreate) -> str:
+    dish = MenuDish(**dish.model_dump())
     await MenuStore.add(dish)
-    return {"status": "ok"}
+    return dish.index
 
 
 @router.put("/menu", tags=["Menu"])
-async def update_dish(index: str = Query(...), dish: CurrentMenuDish = Body(...)):
-    updated = await MenuStore.update(index, dish)
+async def update_dish(dish: MenuDish = Body(...)):
+    updated = await MenuStore.update(dish.index, dish)
     if not updated:
-        raise HTTPException(status_code=404, detail=f"Dish with id '{index}' not found")
+        raise HTTPException(
+            status_code=404, detail=f"Dish with id '{dish.index}' not found"
+        )
     return {"status": "updated"}
 
 
@@ -49,3 +39,22 @@ async def delete_dish(index: str):
     if not removed:
         raise HTTPException(status_code=404, detail=f"Dish with id '{index}' not found")
     return {"status": "deleted"}
+
+
+@router.post("/ocr", tags=["Menu"])
+async def recognize_dishes(file: UploadFile = File(...)) -> list[MenuDish]:
+    contents = await file.read()
+    dishes = await recognition_service.recognize(contents)
+
+    return dishes
+
+
+@router.put("/menu/all", tags=["Menu"])
+async def update_full_menu(dishes: list[MenuDish]):
+    logger.debug(dishes)
+    if not isinstance(dishes, list) or not all(isinstance(d, MenuDish) for d in dishes):
+        raise HTTPException(status_code=400, detail="Invalid menu format")
+
+    dishes_map = MenuMap.from_list(dishes)
+    await MenuStore.save(dishes_map)
+    return {"status": "ok", "count": len(dishes)}

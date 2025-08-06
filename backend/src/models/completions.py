@@ -14,7 +14,6 @@ class ChatMessage(BaseModel):
 
 
 class APICompletionsRequest(BaseModel):
-    is_catering: bool
     query: str
     cart: Cart
     preferences: Preferences

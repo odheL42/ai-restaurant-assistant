@@ -11,27 +11,26 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Secrets(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
-    teplitsa_env: Literal["prod", "dev"]
+    app_env: Literal["prod", "dev"]
 
-    dgis_key: SecretStr
     openweather_key: SecretStr
     openai_key: SecretStr
     openai_validator_key: SecretStr
     openai_summary_key: SecretStr
-    mistral_key: SecretStr
+    openai_visual_key: SecretStr
 
     def is_dev(self) -> bool:
-        return self.teplitsa_env == "dev"
+        return self.app_env == "dev"
 
 
 class Config(BaseModel):
-    dgis_base_url: str
     openweather_base_url: str
+
     history_dir: Path
     summary_dir: Path
     menu_dir: Path
-
     notes_dir: Path
+
     notes_max_char: int
 
     uvicorn_host: str
@@ -56,6 +55,11 @@ class Config(BaseModel):
     openai_summary_temperature: float
     openai_summary_max_tokens: int
 
+    openai_visual_model: str
+    openai_visual_base_url: str
+    openai_visual_temperature: float
+    openai_visual_max_tokens: int
+
     # Cookie
     cookie_name: str
     cookie_max_age: int
@@ -71,6 +75,6 @@ def load_config(env: str) -> Config:
 timezone = ZoneInfo("Asia/Novosibirsk")
 
 secrets = Secrets()
-config = load_config(secrets.teplitsa_env)
+config = load_config(secrets.app_env)
 
-logger.info(f"Application environment: {secrets.teplitsa_env}")
+logger.info(f"Application environment: {secrets.app_env}")
