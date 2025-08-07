@@ -24,8 +24,6 @@ class Secrets(BaseSettings):
 
 
 class Config(BaseModel):
-    openweather_base_url: str
-
     history_dir: Path
     summary_dir: Path
     menu_dir: Path

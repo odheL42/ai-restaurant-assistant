@@ -1,6 +1,6 @@
 import httpx
 
-from src.config import config, secrets
+from src.config import secrets
 from src.models.weather import WeatherResponse
 
 
@@ -13,6 +13,8 @@ async def get_weather() -> WeatherResponse:
     }
     params.update(novosibirsk_coord)
     async with httpx.AsyncClient() as client:
-        response = await client.get(config.openweather_base_url, params=params)
+        response = await client.get(
+            "https://api.openweathermap.org/data/2.5/weather", params=params
+        )
         response.raise_for_status()
     return WeatherResponse(**response.json())

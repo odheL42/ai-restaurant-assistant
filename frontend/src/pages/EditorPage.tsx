@@ -8,24 +8,12 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
-import { Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useStore } from 'zustand'
-import { menuStore } from '@/storage/menu'
 
 export default function EditorPage() {
-    const initialDishes = useStore(menuStore, s => s.initialDishes)
 	const [tab, setTab] = useState<'menu' | 'info'>('menu')
 	const navigate = useNavigate()
-
-	if (!initialDishes) {
-		return (
-			<div className='w-full text-center py-8'>
-				<Loader2 className='mx-auto animate-spin' />
-			</div>
-		)
-	}
 
 	return (
 		<div className='flex flex-col h-dvh p-6 w-full max-w-5xl mx-auto'>
@@ -59,22 +47,23 @@ export default function EditorPage() {
 					</SelectContent>
 				</Select>
 			</div>
-
-			{tab === 'menu' ? (
-				<>
-					<h1 className='text-2xl font-bold mb-4'>
-						Редактирование меню
-					</h1>
-					<MenuTab />
-				</>
-			) : (
-				<>
-					<h1 className='text-2xl font-bold mb-4'>
-						Информация о кафе
-					</h1>
-					<PromptsTab />
-				</>
-			)}
+			<div className='flex flex-col flex-1 min-h-0 h-full w-full'>
+				{tab === 'menu' ? (
+					<>
+						<h1 className='text-2xl font-bold mb-4'>
+							Редактирование меню
+						</h1>
+						<MenuTab />
+					</>
+				) : (
+					<>
+						<h1 className='text-2xl font-bold mb-4'>
+							Информация о кафе
+						</h1>
+						<PromptsTab />
+					</>
+				)}
+			</div>
 		</div>
 	)
 }

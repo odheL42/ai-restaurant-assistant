@@ -1,4 +1,4 @@
-name: Teplitsa application
+name: Ai restaurant assistant application
 
 on:
     push:
@@ -23,5 +23,5 @@ jobs:
                   echo "OPENWEATHER_KEY=${{ secrets.OPENWEATHER_KEY }}" >> ./docker/.env
                   echo "OPENAI_SUMMARY_KEY=${{ secrets.OPENAI_SUMMARY_KEY }}" >> ./docker/.env
                   echo "OPENAI_VALIDATOR_KEY=${{ secrets.OPENAI_VALIDATOR_KEY }}" >> ./docker/.env
-                  echo "DGIS_KEY=${{ secrets.DGIS_KEY }}" >> ./docker/.env
+                  echo "OPENAI_VISUAL_KEY=${{ secrets.OPENAI_VISAUL_KEY }}" >> ./docker/.env
                   docker compose -f ./docker/compose.yaml up -d --build

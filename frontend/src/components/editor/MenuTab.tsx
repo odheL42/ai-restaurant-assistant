@@ -1,6 +1,5 @@
 import MenuTable from '@/components/editor/MenuTable'
 import { Button } from '@/components/ui/button'
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { menuStore } from '@/storage/menu'
 import { Loader2, Save, Upload, X } from 'lucide-react'
 import { useEffect } from 'react'
@@ -19,6 +18,7 @@ export default function MenuTab() {
 	const reset = useStore(menuStore, s => s.reset)
 
 	const loading = useStore(menuStore, s => s.loading)
+	const loadingOcr = useStore(menuStore, s => s.loadingOcr)
 	const saving = useStore(menuStore, s => s.saving)
 
 	useEffect(() => {
@@ -57,12 +57,11 @@ export default function MenuTab() {
 	}
 
 	return (
-		<div className='flex flex-1 flex-col w-full overflow-hidden'>
+		<div className='flex flex-col h-full w-full overflow-hidden'>
 			{/* Таблица со скроллом */}
-			<ScrollArea className='flex-1 overflow-auto border rounded-md'>
+			<div className='flex-1 min-h-0'>
 				<MenuTable readOnly={!isEditing} />
-				<ScrollBar orientation='vertical' />
-			</ScrollArea>
+			</div>
 
 			{/* Управляющие кнопки */}
 			<div className='w-full h-fit flex flex-row justify-end py-4 gap-4'>
@@ -74,7 +73,11 @@ export default function MenuTab() {
 							onClick={handleLoad}
 							disabled={loading}
 						>
-							<Upload size={16} />
+							{loadingOcr ? (
+								<Loader2 className='animate-spin' size={16} />
+							) : (
+								<Upload size={16} />
+							)}
 							Загрузить меню
 						</Button>
 
@@ -82,7 +85,7 @@ export default function MenuTab() {
 							variant='destructive'
 							className='gap-2 hover:cursor-pointer'
 							onClick={handleReset}
-							disabled={loading || saving}
+							disabled={loading || saving || loadingOcr}
 						>
 							<X size={16} />
 							Отменить
@@ -92,7 +95,9 @@ export default function MenuTab() {
 							className='gap-2 hover:cursor-pointer'
 							onClick={handleSave}
 							disabled={
-								saving || Object.keys(editedDishes).length === 0
+								loadingOcr ||
+								saving ||
+								Object.keys(editedDishes).length === 0
 							}
 						>
 							{saving && (
