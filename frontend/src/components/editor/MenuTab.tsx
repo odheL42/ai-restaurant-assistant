@@ -1,4 +1,5 @@
 import MenuTable from '@/components/editor/MenuTable'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { menuStore } from '@/storage/menu'
 import { Loader2, Save, Upload, X } from 'lucide-react'
@@ -20,6 +21,8 @@ export default function MenuTab() {
 	const loading = useStore(menuStore, s => s.loading)
 	const loadingOcr = useStore(menuStore, s => s.loadingOcr)
 	const saving = useStore(menuStore, s => s.saving)
+
+	const error = useStore(menuStore, s => s.error)
 
 	useEffect(() => {
 		loadMenu()
@@ -44,8 +47,12 @@ export default function MenuTab() {
 	}
 
 	const handleSave = async () => {
-		await saveMenu()
-		stopEditing()
+		try {
+			await saveMenu()
+			stopEditing()
+		} catch (err) {
+            console.warn(err)
+        }
 	}
 
 	if (loading) {
@@ -58,6 +65,11 @@ export default function MenuTab() {
 
 	return (
 		<div className='flex flex-col h-full w-full overflow-hidden'>
+			{error && (
+				<Alert variant='destructive' className='mb-4'>
+					<AlertDescription>{error.message}</AlertDescription>
+				</Alert>
+			)}
 			{/* Таблица со скроллом */}
 			<div className='flex-1 min-h-0'>
 				<MenuTable readOnly={!isEditing} />

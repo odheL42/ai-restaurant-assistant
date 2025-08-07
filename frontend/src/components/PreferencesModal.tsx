@@ -1,11 +1,4 @@
-import { useMenuMode } from '@/context/MenuModeContext'
-import { useModal } from '@/context/ModalContext'
-import { usePreferences } from '@/context/PreferencesContext'
-import { useEffect, useState } from 'react'
-import { apiGetNotes, apiSaveNotes } from '../api/api'
-import type { RequestNotes } from '../types/notes'
-import type { Preferences } from '../types/preferences'
-
+import { apiGetNotes, apiSaveNotes } from '@/api/notes'
 import {
 	Dialog,
 	DialogContent,
@@ -14,6 +7,12 @@ import {
 } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { useMenuMode } from '@/context/MenuModeContext'
+import { useModal } from '@/context/ModalContext'
+import { usePreferences } from '@/context/PreferencesContext'
+import { useEffect, useState } from 'react'
+import type { RequestNotes } from '../types/notes'
+import type { Preferences } from '../types/preferences'
 import IntroductionChip from './chat/IntroductionChip'
 
 export const PreferencesModal = () => {

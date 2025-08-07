@@ -1,7 +1,13 @@
 import { apiGetMenu, apiRecognizeMenu, apiSaveFullMenu } from '@/api/menu'
 import type { DBDish, DishByIdMap } from '@/types/menu'
+import { ValidationError } from '@/utils/errors'
 import { createStore } from 'zustand'
 import { persist } from 'zustand/middleware'
+
+export type MenuError =
+	| { type: 'validation'; message: string; invalidIds: string[] }
+	| { type: 'server'; message: string }
+	| { type: 'ocr'; message: string }
 
 type MenuStore = {
 	initialDishes: DishByIdMap
@@ -10,8 +16,11 @@ type MenuStore = {
 	isEditing: boolean
 
 	loading: boolean
-    loadingOcr: boolean
+	loadingOcr: boolean
 	saving: boolean
+
+	error: MenuError | null
+	setError: (newError: null | MenuError) => void
 
 	loadMenuFromServer: () => Promise<void>
 	saveMenuToServer: () => Promise<void>
@@ -37,8 +46,10 @@ export const menuStore = createStore(
 
 			isEditing: false,
 			loading: false,
-            loadingOcr: false,
+			loadingOcr: false,
 			saving: false,
+
+			error: null,
 
 			loadMenuFromServer: async () => {
 				set({ loading: true })
@@ -56,11 +67,11 @@ export const menuStore = createStore(
 			},
 
 			saveMenuToServer: async () => {
+				set({ error: null })
 				set({ saving: true })
 				try {
 					const { initialDishes, editedDishes } = get()
 
-					// Получаем все уникальные id (из initial и edited)
 					const allIds = new Set([
 						...Object.keys(initialDishes),
 						...Object.keys(editedDishes),
@@ -68,6 +79,7 @@ export const menuStore = createStore(
 
 					const toDelete: string[] = []
 					const toUpsert: any[] = []
+					const invalidIds: string[] = []
 
 					for (const id of allIds) {
 						const patch = editedDishes[id]
@@ -77,19 +89,43 @@ export const menuStore = createStore(
 						} else {
 							const base = initialDishes[id] || {}
 							const merged = { ...base, ...patch }
+
+							// Валидация обязательных полей
+							const requiredFields: (keyof typeof merged)[] = [
+								'title',
+								'price',
+							]
+							const hasMissing = requiredFields.some(
+								field => !merged[field] && merged[field] !== 0
+							)
+
+							if (hasMissing) {
+								invalidIds.push(id)
+								continue
+							}
+
 							toUpsert.push(merged)
 						}
 					}
 
+					if (invalidIds.length > 0) {
+						set({
+							error: {
+								type: 'validation',
+								message:
+									'Заполните обязательные поля перед сохранением.',
+								invalidIds,
+							},
+						})
+						throw new ValidationError()
+					}
+
 					await apiSaveFullMenu(toUpsert)
 
-					// Обновляем initial после успешного сохранения
 					const newInitial = Object.fromEntries(
 						toUpsert.map(d => [d.index, d])
 					)
 					set({ initialDishes: newInitial, editedDishes: {} })
-				} catch (err) {
-					console.error('Ошибка при сохранении меню', err)
 				} finally {
 					set({ saving: false })
 				}
@@ -159,8 +195,12 @@ export const menuStore = createStore(
 				}
 			},
 
-			startEditing: () => set({ isEditing: true }),
-			stopEditing: () => set({ isEditing: false }),
+			setError: newError => set({ error: newError }),
+
+			startEditing: () => {
+				set({ isEditing: true, error: null })
+			},
+			stopEditing: () => set({ isEditing: false, error: null }),
 
 			reset: () => {
 				set({ editedDishes: {} })

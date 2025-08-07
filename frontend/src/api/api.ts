@@ -2,7 +2,6 @@ import type { DBChatMessage } from '../types/chat'
 import type { ChunkResponse, CompletionsRequest } from '../types/completions'
 import { ChunkType } from '../types/completions'
 import type { DBDish } from '../types/menu'
-import type { RequestNotes } from '../types/notes'
 import apiClient from '../utils/axios'
 
 export const apiCompletions = async (
@@ -65,20 +64,7 @@ export const apiGetHistory = async (): Promise<DBChatMessage[]> => {
 	return response.data
 }
 
-
 export const apiClearHistory = async (): Promise<DBDish[]> => {
 	const response = await apiClient.post(`/api/erase_history`)
-	return response.data
-}
-
-export const apiGetNotes = async (): Promise<string> => {
-	const response = await apiClient.get(`/api/get_notes`)
-	return response.data
-}
-
-export const apiSaveNotes = async (
-	request: RequestNotes
-): Promise<DBDish[]> => {
-	const response = await apiClient.post(`/api/save_notes`, request)
 	return response.data
 }
