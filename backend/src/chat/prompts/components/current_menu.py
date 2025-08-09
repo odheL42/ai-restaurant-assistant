@@ -15,8 +15,7 @@ $menu
     def _format_dish(cls, dish: MenuDish) -> str:
         parts = [f"Индекс. {dish.index}"]
         parts.append(f"Назввание: {dish.title}")
-        parts.append(f"Категория: {dish.category.value}")
-        parts.append(f"Подкатегория: {dish.subcategory}")
+        parts.append(f"Категория: {dish.category}")
         parts.append(f"Порция: {dish.quantity}")
         parts.append(f"Цена: {dish.price}")
 

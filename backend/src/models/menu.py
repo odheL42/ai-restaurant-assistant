@@ -21,7 +21,7 @@ class MenuDish(BaseModel):
     price: int
     category: str | None
     quantity: str | None  # (выход, гр)
-    stock: bool | None = None
+    stock: bool = True
     notes: str | None = None  # уточнения
     cpfc: CPFCModel | None = None
 
@@ -31,7 +31,7 @@ class MenuDishCreate(BaseModel):
     price: int
     category: str | None
     quantity: str | None  # (выход, гр)
-    stock: bool | None = None
+    stock: bool = True
     notes: str | None = None  # уточнения
     cpfc: CPFCModel | None = None
 

@@ -766,7 +766,7 @@ wheels = [
 ]
 
 [[package]]
-name = "teplitsa-recommender"
+name = "ai-ass-recommender"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

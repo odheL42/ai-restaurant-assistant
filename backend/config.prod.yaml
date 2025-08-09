@@ -33,5 +33,5 @@ openai_visual_temperature: 0.7
 openai_visual_max_tokens: 10000
 
 # Cookie
-cookie_name: teplitsa_cookie
+cookie_name: ofiik_cookie
 cookie_max_age: 31536000 # 1 год

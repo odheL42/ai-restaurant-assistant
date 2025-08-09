@@ -1,24 +1,24 @@
 services:
     frontend:
-        container_name: teplitsa_frontend
+        container_name: ai-ass-frontend
         build:
             context: ../frontend
             dockerfile: ../docker/Dockerfile.frontend
         ports:
             - '2424:80'
         networks:
-            - teplitsa-net
+            - ai-ass-net
         depends_on:
             backend:
                 condition: service_healthy
         restart: always
     backend:
-        container_name: teplitsa_backend
+        container_name: ai-ass-backend
         build:
             context: ../backend
             dockerfile: ../docker/Dockerfile.backend
         networks:
-            - teplitsa-net
+            - ai-ass-net
         volumes:
             - /etc/localtime:/etc/localtime:ro
         healthcheck:
@@ -37,5 +37,5 @@ services:
             - OPENAI_VISUAL_KEY=$OPENAI_VISUAL_KEY
 
 networks:
-    teplitsa-net:
+    ai-ass-net:
         driver: bridge
