@@ -10,7 +10,6 @@ import { ThemeProvider } from './components/ThemeProvider'
 import { CartProvider } from './context/CartContext'
 import { GenerationProvider } from './context/GenerationContext'
 import { HistoryProvider, useHistory } from './context/HistoryContext'
-import { MenuModeProvider } from './context/MenuModeContext'
 import { ModalProvider } from './context/ModalContext'
 import { PreferencesProvider } from './context/PreferencesContext'
 import Chat from './pages/Chat'
@@ -40,7 +39,6 @@ const App = () => {
 	return (
 		<ThemeProvider>
 			<React.StrictMode>
-				<MenuModeProvider>
 					<CartProvider>
 						<HistoryProvider>
 							<PreferencesProvider>
@@ -72,7 +70,6 @@ const App = () => {
 							</PreferencesProvider>
 						</HistoryProvider>
 					</CartProvider>
-				</MenuModeProvider>
 			</React.StrictMode>
 		</ThemeProvider>
 	)

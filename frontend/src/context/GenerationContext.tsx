@@ -2,7 +2,6 @@ import { createContext, type ReactNode, useContext, useState } from 'react'
 import { apiCompletions } from '../api/api'
 import type { ChunkResponse } from '../types/completions'
 import { useCart } from './CartContext'
-import { useMenuMode } from './MenuModeContext'
 import { usePreferences } from './PreferencesContext'
 
 interface GenerationContextValue {
@@ -29,7 +28,6 @@ export const GenerationProvider = ({
 
 	const { items } = useCart()
 	const { preferences } = usePreferences()
-	const { isCatering } = useMenuMode()
 
 	const startGeneration = async (query: string) => {
 		if (isGenerating || isWaitingForGeneration) return
@@ -37,7 +35,6 @@ export const GenerationProvider = ({
 		setIsWaiting(true)
 
 		const request = {
-			isCatering: isCatering,
 			query: query,
 			cart: { items: items },
 			preferences: preferences,

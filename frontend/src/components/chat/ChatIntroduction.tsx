@@ -1,8 +1,5 @@
 // components/ChatIntroduction.tsx
 import { Card, CardContent } from '@/components/ui/card'
-import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
-import { useMenuMode } from '@/context/MenuModeContext'
 import { useModal } from '@/context/ModalContext'
 import { useMemo } from 'react'
 
@@ -23,7 +20,6 @@ const tipsPool = [
 
 export const ChatIntroduction = () => {
 	const { open } = useModal()
-	const { isCatering, toggleIsCatering } = useMenuMode()
 
 	const greeting = useMemo(() => {
 		const index = Math.floor(Math.random() * greetingsPool.length)
@@ -33,22 +29,6 @@ export const ChatIntroduction = () => {
 	return (
 		<div className='w-full mx-auto flex flex-col gap-4 px-4 pt-4'>
 			<p className='text-base text-muted-foreground'>{greeting}</p>
-
-			<Card className='p-4'>
-				<div className='flex items-center justify-between'>
-					<Label htmlFor='catering-mode' className='text-sm'>
-						{isCatering
-							? 'Режим: Кейтеринг'
-							: 'Режим: Основное меню'}
-					</Label>
-					<Switch
-						id='catering-mode'
-						checked={isCatering}
-						onCheckedChange={toggleIsCatering}
-						className='hover:cursor-pointer'
-					/>
-				</div>
-			</Card>
 
 			<div className='flex flex-col gap-2'>
 				{tipsPool.map(({ title, description }, idx) => (

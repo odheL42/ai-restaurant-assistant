@@ -7,7 +7,6 @@ import {
 } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { useMenuMode } from '@/context/MenuModeContext'
 import { useModal } from '@/context/ModalContext'
 import { usePreferences } from '@/context/PreferencesContext'
 import { useEffect, useState } from 'react'
@@ -18,7 +17,6 @@ import IntroductionChip from './chat/IntroductionChip'
 export const PreferencesModal = () => {
 	const { isOpen, close } = useModal()
 	const { preferences, togglePreference } = usePreferences()
-	const { isCatering } = useMenuMode()
 	const [notes, setNotes] = useState<string>('')
 	const [loading, setLoading] = useState<boolean>(false)
 	const [, setSaving] = useState<boolean>(false)
@@ -37,7 +35,7 @@ export const PreferencesModal = () => {
 		const value = e.target.value
 		setNotes(value)
 		setSaving(true)
-		const request: RequestNotes = { notes: value, isCatering }
+		const request: RequestNotes = { notes: value }
 
 		try {
 			await apiSaveNotes(request)
