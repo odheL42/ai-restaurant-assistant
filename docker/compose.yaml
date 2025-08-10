@@ -30,11 +30,11 @@ services:
         restart: always
         environment:
             - APP_ENV=prod
-            - OPENWEATHER_KEY=$OPENWEATHER_KEY
-            - OPENAI_KEY=$OPENAI_KEY
-            - OPENAI_SUMMARY_KEY=$OPENAI_SUMMARY_KEY
-            - OPENAI_VALIDATOR_KEY=$OPENAI_VALIDATOR_KEY
-            - OPENAI_VISUAL_KEY=$OPENAI_VISUAL_KEY
+            - OPENWEATHER_KEY=${OPENWEATHER_KEY?required}
+            - OPENAI_KEY=${OPENAI_KEY?required}
+            - OPENAI_SUMMARY_KEY=${OPENAI_SUMMARY_KEY?required}
+            - OPENAI_VALIDATOR_KEY=${OPENAI_VALIDATOR_KEY?required}
+            - OPENAI_VISUAL_KEY=${OPENAI_VISUAL_KEY?required}
 
 networks:
     ai-ass-net:
