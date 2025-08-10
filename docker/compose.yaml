@@ -29,7 +29,7 @@ services:
             start_period: 10s
         restart: always
         environment:
-            - app_env=prod
+            - APP_ENV=prod
             - OPENWEATHER_KEY=$OPENWEATHER_KEY
             - OPENAI_KEY=$OPENAI_KEY
             - OPENAI_SUMMARY_KEY=$OPENAI_SUMMARY_KEY
