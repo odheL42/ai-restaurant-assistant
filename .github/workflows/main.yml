@@ -30,4 +30,4 @@ jobs:
               run: docker compose -f ./docker/compose.yaml down
 
             - name: Build and run containers
-              run: docker compose -f ./docker/compose.yaml up
+              run: docker compose -f ./docker/compose.yaml up -d --build
