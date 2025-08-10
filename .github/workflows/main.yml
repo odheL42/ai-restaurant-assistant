@@ -23,7 +23,7 @@ jobs:
                   OPENWEATHER_KEY=${{ secrets.OPENWEATHER_KEY }}
                   OPENAI_SUMMARY_KEY=${{ secrets.OPENAI_SUMMARY_KEY }}
                   OPENAI_VALIDATOR_KEY=${{ secrets.OPENAI_VALIDATOR_KEY }}
-                  OPENAI_VISUAL_KEY=${{ secrets.OPENAI_VISAUL_KEY }}
+                  OPENAI_VISUAL_KEY=${{ secrets.OPENAI_VISUAL_KEY }}
                   EOF
 
             - name: Stop previous containers
