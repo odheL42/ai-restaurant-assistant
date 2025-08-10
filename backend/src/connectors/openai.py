@@ -5,10 +5,12 @@ from pydantic import Base64Str
 
 from src.config import config, secrets
 from src.models.completions import ChatMessage
+from loguru import logger
 
 
 class OpenAICompletionsGenerator:
     def __init__(self) -> None:
+        logger.debug(secrets.openai_key.get_secret_value())
         self.client = AsyncOpenAI(
             api_key=secrets.openai_key.get_secret_value(),
             base_url=config.openai_base_url,
