@@ -76,7 +76,8 @@ export default function MenuTab() {
 			</div>
 
 			{/* Управляющие кнопки */}
-			<div className='w-full h-fit flex flex-row justify-end py-4 gap-4'>
+			<div className='w-full h-fit flex flex-wrap justify-end py-4 gap-4'>
+
 				{isEditing ? (
 					<>
 						<Button
