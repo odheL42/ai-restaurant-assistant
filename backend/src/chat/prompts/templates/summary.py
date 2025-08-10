@@ -14,6 +14,10 @@ system_summary_prompt = Template("""
 
 ---
 
+Информация о кафе: "$cafe_info"
+                               
+---
+
 Уже выявленные предпочтения (notes): "$notes"
 
 ---

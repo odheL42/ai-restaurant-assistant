@@ -24,7 +24,7 @@ class PromptBuilder:
 
     async def system(self) -> ChatMessage:
         prompt = await GeneratorPromptBuilder.build()
-        # logger.debug(f"Меню успешно вставлено в prompt: {prompt}")
+        logger.debug(f"Меню успешно вставлено в prompt: {prompt}")
         return ChatMessage(role="system", content=prompt)
 
     async def user(self, query: str) -> ChatMessage:

@@ -1,3 +1,4 @@
+from .cafe_info import router as cafe_info_router
 from .completions import router as completions_router
 from .health import router as health_router
 from .history import router as history_router
@@ -10,4 +11,5 @@ __all__ = [
     "history_router",
     "menu_router",
     "notes_router",
+    "cafe_info_router",
 ]

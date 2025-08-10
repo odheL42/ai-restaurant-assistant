@@ -73,7 +73,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSubmit }) => {
 						className='hover:cursor-pointer'
 					>
 						<Wrench className='size-5' />
-						Редактировать меню
+						Перейти в режим администратора
 					</Button>
 				</div>
 
@@ -86,7 +86,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSubmit }) => {
 					onClick={handleSubmit}
 					variant='default'
 					size='icon'
-					className='hover:cursor-pointer transition-transform duration-150 ease-in-out cursor-pointer hover:scale-110 hover:text-green-600'
+					className='hover:cursor-pointer transition-transform duration-150 ease-in-out cursor-pointer hover:scale-110'
 				>
 					<ArrowUp className='size-5' />
 				</Button>

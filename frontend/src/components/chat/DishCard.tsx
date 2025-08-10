@@ -45,7 +45,7 @@ const DishCard: FC<Props> = ({ dish }) => {
 					variant='ghost'
 					size='icon'
 					onClick={handleAdd}
-					className='text-gray-600 hover:text-green-600 active:scale-90 active:text-green-700 dark:text-gray-300 dark:hover:text-green-500 transition-transform duration-150 ease-in-out cursor-pointer hover:scale-110'
+					className='active:scale-90 transition-transform duration-150 ease-in-out cursor-pointer hover:scale-110'
 					aria-label='Добавить'
 				>
 					<Plus className='size-6' />

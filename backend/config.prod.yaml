@@ -5,6 +5,9 @@ menu_dir: ./menu
 notes_dir: ./notes
 notes_max_char: 500
 
+cafe_info_dir: ./cafe_info
+cafei_nfo_max_char: 500
+
 uvicorn_host: '0.0.0.0'
 uvicorn_port: 80
 uvicorn_workers: 1

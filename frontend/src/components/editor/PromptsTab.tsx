@@ -1,31 +1,32 @@
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
-import { notesStore } from '@/storage/notes'
+import { cafeInfoStore } from '@/storage/cafeInfo'
+
 import { Loader2, Save, X } from 'lucide-react'
 import { useEffect } from 'react'
 import { useStore } from 'zustand'
 
 export default function PromptsTab() {
-	const isEditing = useStore(notesStore, s => s.isEditing)
-	const startEditing = useStore(notesStore, s => s.startEditing)
-	const stopEditing = useStore(notesStore, s => s.stopEditing)
-	const editedText = useStore(notesStore, s => s.editedText)
-	const initialText = useStore(notesStore, s => s.initialText)
+	const isEditing = useStore(cafeInfoStore, s => s.isEditing)
+	const startEditing = useStore(cafeInfoStore, s => s.startEditing)
+	const stopEditing = useStore(cafeInfoStore, s => s.stopEditing)
+	const editedText = useStore(cafeInfoStore, s => s.editedText)
+	const initialText = useStore(cafeInfoStore, s => s.initialText)
 
-	const updateText = useStore(notesStore, s => s.updateEditedText)
-	const saveNotes = useStore(notesStore, s => s.saveNotesToServer)
-	const loadNotes = useStore(notesStore, s => s.loadNotesFromServer)
+	const updateText = useStore(cafeInfoStore, s => s.updateEditedText)
+	const saveInfo = useStore(cafeInfoStore, s => s.saveInfoToServer)
+	const loadInfo = useStore(cafeInfoStore, s => s.loadInfoFromServer)
 
-	const reset = useStore(notesStore, s => s.reset)
+	const reset = useStore(cafeInfoStore, s => s.reset)
 
-	const loading = useStore(notesStore, s => s.loading)
-	const saving = useStore(notesStore, s => s.saving)
+	const loading = useStore(cafeInfoStore, s => s.loading)
+	const saving = useStore(cafeInfoStore, s => s.saving)
 
-	const error = useStore(notesStore, s => s.error)
+	const error = useStore(cafeInfoStore, s => s.error)
 
 	useEffect(() => {
-		loadNotes()
+		loadInfo()
 	}, [])
 
 	const handleReset = () => {
@@ -35,7 +36,7 @@ export default function PromptsTab() {
 
 	const handleSave = async () => {
 		try {
-			await saveNotes()
+			await saveInfo()
 			stopEditing()
 		} catch (err) {
 			console.warn(err)

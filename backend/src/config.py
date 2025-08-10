@@ -28,8 +28,10 @@ class Config(BaseModel):
     summary_dir: Path
     menu_dir: Path
     notes_dir: Path
+    cafe_info_dir: Path
 
     notes_max_char: int
+    cafe_info_max_char: int
 
     uvicorn_host: str
     uvicorn_port: int

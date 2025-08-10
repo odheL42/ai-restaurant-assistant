@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from src.api import (
+    cafe_info_router,
     completions_router,
     health_router,
     history_router,
@@ -46,6 +47,7 @@ app.include_router(completions_router, prefix=prefix)
 app.include_router(menu_router, prefix=prefix)
 app.include_router(health_router, prefix=prefix)
 app.include_router(notes_router, prefix=prefix)
+app.include_router(cafe_info_router, prefix=prefix)
 
 
 if __name__ == "__main__":

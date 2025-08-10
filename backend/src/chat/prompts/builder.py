@@ -2,6 +2,7 @@ from loguru import logger
 
 from src.connectors.openweather import get_weather
 from src.models.validator import ValidatorResponse
+from src.storage.cafe_info import CafeInfoStore
 from src.storage.notes import NotesStore
 from src.storage.summary import HistorySummaryStore
 
@@ -47,6 +48,9 @@ class GeneratorPromptBuilder:
         db_notes = await NotesStore.get()
         fields["notes"] = db_notes.notes
 
+        db_cafe_info = await CafeInfoStore.get()
+        fields["cafe_info"] = db_cafe_info.cafe_info
+
         return system_main_menu_template.substitute(**fields)
 
     @classmethod
@@ -60,6 +64,7 @@ class GeneratorPromptBuilder:
 async def build_summary_system_prompt() -> str:
     old_summary = await HistorySummaryStore.get()
     notes = await NotesStore.get()
+    cafe_info = await CafeInfoStore.get()
     return system_summary_prompt.substitute(
-        old_summary=old_summary.summary, notes=notes.notes
+        old_summary=old_summary.summary, notes=notes.notes, cafe_info=cafe_info.cafe_info
     )

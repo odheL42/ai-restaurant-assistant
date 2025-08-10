@@ -15,7 +15,7 @@ export default function Header() {
 			<div className='absolute inset-0 flex justify-center items-center pointer-events-none'>
 				<div className='flex flex-col items-center'>
 					<h2 className='text-xl font-extrabold text-foreground select-none'>
-						Офик
+						ИИ-официант
 					</h2>
 				</div>
 			</div>

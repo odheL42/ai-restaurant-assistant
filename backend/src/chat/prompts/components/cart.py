@@ -18,7 +18,8 @@ class CartPrompt:
         lines = ""
         for dish_id, amount in cart.items.items():
             dish_map = await MenuStore.load()
-            dish = dish_map[dish_id]
+            dish = dish_map.get(dish_id)
+            # [dish_id]
             lines += f"{amount} {dish.title}\n"
 
         return cls._cart_prompt + lines

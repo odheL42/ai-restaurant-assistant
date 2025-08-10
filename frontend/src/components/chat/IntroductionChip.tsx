@@ -26,8 +26,8 @@ const IntroductionChip = ({
 			className={clsx(
 				'px-3 py-1 rounded-full text-sm text-[17px] font-sans',
 				selected
-					? 'bg-green-500 text-white'
-					: 'bg-gray-200 text-gray-800 dark:bg-[#2f2f2f] dark:text-gray-200',
+					? 'bg-primary text-foreground-primary'
+					: 'bg-muted',
 				'hover:shadow-sm focus:outline-none',
 			)}
 		>
