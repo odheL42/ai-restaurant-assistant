@@ -86,7 +86,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSubmit }) => {
 					onClick={handleSubmit}
 					variant='default'
 					size='icon'
-					className='hover:cursor-pointer transition-transform duration-150 ease-in-out cursor-pointer hover:scale-110'
+					className='ml-2 mr-1 hover:cursor-pointer transition-transform duration-150 ease-in-out cursor-pointer hover:scale-110'
 				>
 					<ArrowUp className='size-5' />
 				</Button>
