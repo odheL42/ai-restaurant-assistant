@@ -37,6 +37,6 @@
    git remote -v # confirm the changes -->
 
 ## Ресурсы
-При реализации данного решения использовались бесплатные API Keys следующих ресурсов:
+При реализации данного решения использовались API Keys следующих ресурсов:
 - [OpenWeatherMap](https://openweathermap.org/api)
-- [OpenAI](https://platform.openai.com/docs/models)
+- [OpenAI](https://platform.openai.com/docs/models) - использовалась модель gpt-4o
